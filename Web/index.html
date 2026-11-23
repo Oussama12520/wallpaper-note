@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteWall — Creative Desktop Wallpaper</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+  <!-- Startup Screen Animation -->
+  <div id="startup-overlay">
+    <div class="startup-brand">
+      <div class="startup-signature">OSAMA</div>
+      <div class="startup-title">
+        <div class="startup-logo-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+            <path d="M8 12h8"/>
+            <path d="M8 8h5"/>
+            <path d="M8 16h6"/>
+          </svg>
+        </div>
+        NoteWall
+      </div>
+      <div class="startup-sub">Creative Desktop Wallpaper Studio</div>
+    </div>
+  </div>
+
+  <div id="app">
+    <!-- Top Navigation Bar -->
+    <header id="topbar">
+      <div class="topbar-left">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="4"/>
+              <path d="M8 12h8"/>
+              <path d="M8 8h5"/>
+              <path d="M8 16h6"/>
+            </svg>
+          </div>
+          NoteWall
+        </div>
+        <div class="project-meta">
+          <input type="text" id="project-name-input" class="project-name-input" value="My Workspace" title="Click to rename project">
+          <div id="save-status-pill" class="save-status-pill saved">
+            <span class="save-dot"></span>
+            <span id="save-status-text">Saved</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="btn-icon-group">
+          <button id="btn-undo" class="btn-icon" data-tooltip="Undo (Ctrl+Z)" disabled>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+          </button>
+          <button id="btn-redo" class="btn-icon" data-tooltip="Redo (Ctrl+Shift+Z)" disabled>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+          </button>
+        </div>
+
+        <div class="btn-icon-group">
+          <button id="btn-reset-example" class="btn-secondary" title="Reset to default example project">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Reset Example
+          </button>
+          <button id="btn-templates" class="btn-secondary" title="Choose template">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Templates
+          </button>
+          <button id="btn-focus-mode" class="btn-secondary" title="Toggle Distraction-free Focus Mode">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+            Focus
+          </button>
+          <button id="btn-desktop-preview" class="btn-secondary" title="Preview with Windows Taskbar & Icons">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Desktop Preview
+          </button>
+          <button id="btn-preview-mode" class="btn-secondary" title="Full Wallpaper Preview (Ctrl+P)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Preview
+          </button>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button id="btn-search" class="btn-icon" data-tooltip="Search notes (Ctrl+F)">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button id="btn-history" class="btn-icon" data-tooltip="Wallpaper History">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </button>
+        <button id="btn-export-png" class="btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export PNG
+        </button>
+        <button id="btn-set-wallpaper" class="btn-primary-wallpaper">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          Set Wallpaper
+        </button>
+        <button id="btn-settings" class="btn-icon" data-tooltip="Settings">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div id="workspace">
+      <!-- Left Compact Toolbar -->
+      <nav id="left-toolbar">
+        <button id="tool-select" class="tool-btn active" data-tooltip="Select (V)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 7 18 3-7 7-3L3 3z"/></svg>
+        </button>
+        <button id="tool-add-note" class="tool-btn" data-tooltip="Add Note (N)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+
+        <!-- Flyout for Note Types -->
+        <div id="note-flyout" class="note-flyout">
+          <button class="flyout-item" data-type="standard">
+            <span>📝</span> Standard Note
+          </button>
+          <button class="flyout-item" data-type="photo">
+            <span>🖼️</span> Photo Note
+          </button>
+          <button class="flyout-item" data-type="checklist">
+            <span>☑️</span> Checklist
+          </button>
+          <button class="flyout-item" data-type="reminder">
+            <span>⏰</span> Reminder
+          </button>
+          <button class="flyout-item" data-type="quote">
+            <span>💬</span> Quote
+          </button>
+          <button class="flyout-item" data-type="link">
+            <span>🔗</span> Quick Link
+          </button>
+          <button class="flyout-item" data-type="code">
+            <span>💻</span> Code Note
+          </button>
+        </div>
+
+        <!-- Hidden input for photo notes -->
+        <input type="file" id="note-photo-file-input" accept="image/*" style="display:none;" />
+
+        <button id="tool-text" class="tool-btn" data-tooltip="Text Note (T)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <button id="tool-shape" class="tool-btn" data-tooltip="Add Shape / Card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+        </button>
+        <button id="tool-image" class="tool-btn" data-tooltip="Add Photo Note (I)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </button>
+
+        <div class="toolbar-divider"></div>
+
+        <button id="tool-group" class="tool-btn" data-tooltip="Group (Ctrl+G)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/><path d="M7 11v6a2 2 0 0 0 2 2h6"/></svg>
+        </button>
+        <button id="tool-lock" class="tool-btn" data-tooltip="Lock (Ctrl+L)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </button>
+        <button id="tool-delete" class="tool-btn" data-tooltip="Delete (Del)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </nav>
+
+      <!-- Center Canvas Viewport -->
+      <main id="canvas-viewport">
+        <!-- Floating resolution and monitor controls -->
+        <div class="canvas-header-bar">
+          <div id="monitor-tabs" class="monitor-tabs">
+            <button class="monitor-tab-btn active" data-index="0">Monitor 1</button>
+          </div>
+          <div style="width: 1px; height: 16px; background: var(--border-medium);"></div>
+          <select id="resolution-selector" class="res-select" title="Canvas Resolution">
+            <option value="1920x1080">1920 × 1080 (FHD)</option>
+            <option value="2560x1440">2560 × 1440 (2K QHD)</option>
+            <option value="3840x2160">3840 × 2160 (4K UHD)</option>
+            <option value="1366x768">1366 × 768</option>
+            <option value="1920x1200">1920 × 1200</option>
+            <option value="screen">Use My Screen Resolution</option>
+            <option value="custom">Custom...</option>
+          </select>
+        </div>
+
+        <!-- Canvas Stage (Scaled and translated) -->
+        <div id="canvas-stage" style="width: 1920px; height: 1080px;">
+          <!-- Multi-tier Wallpaper Background System -->
+          <div id="canvas-background-container">
+            <div id="canvas-bg-checkerboard"></div>
+            <div id="canvas-bg-media"></div>
+            <div id="canvas-bg-overlay"></div>
+            <div id="canvas-bg-vignette"></div>
+          </div>
+          <div id="canvas-notes-layer"></div>
+          <!-- Smart Guides Layer -->
+          <div id="guides-layer"></div>
+        </div>
+
+        <!-- Desktop Simulation Overlay -->
+        <div id="desktop-preview-overlay">
+          <div class="sim-desktop-icons">
+            <div class="sim-icon-item">
+              <div class="sim-icon-box">💻</div>
+              <div class="sim-icon-label">This PC</div>
+            </div>
+            <div class="sim-icon-item">
+              <div class="sim-icon-box">🗑️</div>
+              <div class="sim-icon-label">Recycle Bin</div>
+            </div>
+            <div class="sim-icon-item">
+              <div class="sim-icon-box">📁</div>
+              <div class="sim-icon-label">Projects</div>
+            </div>
+          </div>
+          <div class="sim-taskbar">
+            <div style="font-size: 11px; color: #a1a1aa;">Windows Desktop Preview</div>
+            <div class="sim-taskbar-center">
+              <div class="sim-taskbar-icon">🪟</div>
+              <div class="sim-taskbar-icon">🔍</div>
+              <div class="sim-taskbar-icon">📁</div>
+              <div class="sim-taskbar-icon">🌐</div>
+              <div class="sim-taskbar-icon">⚡</div>
+            </div>
+            <div class="sim-taskbar-tray">
+              <span>ENG</span>
+              <span>📶 🔊 🔋</span>
+              <span id="sim-taskbar-clock">12:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom controls -->
+        <div class="canvas-bottom-bar">
+          <div id="coords-indicator" class="coords-pill">X: 0 Y: 0</div>
+          <div class="zoom-pill">
+            <button id="btn-zoom-out" class="zoom-btn" title="Zoom Out (Ctrl -)">−</button>
+            <span id="zoom-value" class="zoom-label" title="Click to reset">50%</span>
+            <button id="btn-zoom-in" class="zoom-btn" title="Zoom In (Ctrl +)">+</button>
+            <button id="btn-zoom-fit" class="zoom-btn" title="Fit to Screen (Shift 1)" style="font-size: 11px; width: auto; padding: 0 4px;">Fit</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Right Contextual Inspector / Properties Panel -->
+      <aside id="right-sidebar">
+        <div class="sidebar-tabs">
+          <button id="tab-btn-properties" class="sidebar-tab-btn active">Properties</button>
+          <button id="tab-btn-background" class="sidebar-tab-btn">Background</button>
+          <button id="tab-btn-layout" class="sidebar-tab-btn">Layout</button>
+          <button id="tab-btn-layers" class="sidebar-tab-btn">Layers</button>
+        </div>
+
+        <!-- PROPERTIES TAB -->
+        <div id="tab-content-properties" class="tab-pane">
+          <div id="no-selection-prompt" style="padding: 24px 16px; text-align: center; color: var(--text-muted);">
+            <div style="font-size: 28px; margin-bottom: 8px;">🎯</div>
+            <div style="font-weight: 500; font-size: 13px; color: var(--text-secondary); margin-bottom: 4px;">No Note Selected</div>
+            <div style="font-size: 11px;">Select a note on the canvas or click "Add Note" to customize.</div>
+          </div>
+
+          <div id="selection-inspector" style="display: none;">
+            <!-- Content Section -->
+            <div class="panel-section">
+              <div class="section-header">
+                <span class="section-title">Content</span>
+                <span id="prop-note-type-badge" class="tag-badge">STANDARD</span>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Title</label>
+                <input type="text" id="prop-title" class="prop-input" placeholder="Note title...">
+              </div>
+              <div class="control-group">
+                <label class="control-label">Body Content</label>
+                <textarea id="prop-body" class="prop-input" rows="3" placeholder="Write text or list..."></textarea>
+              </div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Tag</label>
+                  <input type="text" id="prop-tag" class="prop-input" placeholder="#work, #urgent">
+                </div>
+                <div class="control-group" style="width: 100px;">
+                  <label class="control-label">Priority</label>
+                  <select id="prop-priority" class="prop-input">
+                    <option value="none">None</option>
+                    <option value="low">Low</option>
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Position & Size Section -->
+            <div class="panel-section">
+              <div class="section-header">
+                <span class="section-title">Transform</span>
+              </div>
+              <div class="control-row" style="margin-bottom: 6px;">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">X</label>
+                  <input type="number" id="prop-pos-x" class="prop-input">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Y</label>
+                  <input type="number" id="prop-pos-y" class="prop-input">
+                </div>
+              </div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Width</label>
+                  <input type="number" id="prop-width" class="prop-input">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Height</label>
+                  <input type="number" id="prop-height" class="prop-input">
+                </div>
+                <div class="control-group" style="width: 75px;">
+                  <label class="control-label">Rotate °</label>
+                  <input type="number" id="prop-rotation" class="prop-input" min="-180" max="180">
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo Attachment Section -->
+            <div id="prop-section-photo" class="panel-section" style="display: none;">
+              <div class="section-header">
+                <span class="section-title">Photo Attachment</span>
+              </div>
+              <div class="control-group">
+                <div id="prop-photo-preview" style="width: 100%; height: 110px; border-radius: 8px; border: 1px solid var(--border-subtle); background-size: cover; background-position: center; margin-bottom: 8px; display: none;"></div>
+                <div style="display: flex; gap: 8px;">
+                  <button id="btn-prop-choose-photo" class="btn-secondary" style="flex: 1; font-size: 11px; padding: 6px 10px;">
+                    📷 Choose Photo
+                  </button>
+                  <button id="btn-prop-remove-photo" class="btn-secondary" style="font-size: 11px; padding: 6px 10px; color: #ef4444;" title="Remove Photo">
+                    ✕
+                  </button>
+                </div>
+              </div>
+              <div class="control-group" style="margin-top: 6px;">
+                <label class="control-label">Fit Mode</label>
+                <select id="prop-photo-fit" class="prop-input">
+                  <option value="cover">Cover (Fill Note)</option>
+                  <option value="contain">Contain (Full Image)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Appearance & Styling Section -->
+            <div class="panel-section">
+              <div class="section-header">
+                <span class="section-title">Appearance</span>
+              </div>
+              <label class="control-label">Color Presets</label>
+              <div class="color-presets-grid" id="note-color-presets">
+                <div class="color-swatch" style="background: #27272a;" data-color="#27272a" title="Obsidian Dark"></div>
+                <div class="color-swatch" style="background: #eab308;" data-color="#eab308" title="Yellow"></div>
+                <div class="color-swatch" style="background: #3b82f6;" data-color="#3b82f6" title="Blue"></div>
+                <div class="color-swatch" style="background: #10b981;" data-color="#10b981" title="Green"></div>
+                <div class="color-swatch" style="background: #ef4444;" data-color="#ef4444" title="Red"></div>
+                <div class="color-swatch" style="background: #a855f7;" data-color="#a855f7" title="Purple"></div>
+                <div class="color-swatch" style="background: #f97316;" data-color="#f97316" title="Orange"></div>
+                <div class="color-swatch" style="background: #ec4899;" data-color="#ec4899" title="Pink"></div>
+                <div class="color-swatch" style="background: #14b8a6;" data-color="#14b8a6" title="Teal"></div>
+                <div class="color-swatch" style="background: #64748b;" data-color="#64748b" title="Slate"></div>
+                <div class="color-swatch" style="background: #ffffff;" data-color="#ffffff" title="White"></div>
+                <div class="color-swatch" style="background: #09090b;" data-color="#09090b" title="Midnight Black"></div>
+              </div>
+
+              <div class="control-row" style="margin-bottom: 8px;">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Custom HEX</label>
+                  <input type="text" id="prop-color-hex" class="prop-input" value="#27272a">
+                </div>
+                <div class="control-group" style="width: 40px;">
+                  <label class="control-label">Pick</label>
+                  <input type="color" id="prop-color-picker" style="width: 100%; height: 28px; padding: 0; border: none; cursor: pointer; background: transparent;">
+                </div>
+              </div>
+
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Corner Radius</label>
+                  <input type="range" id="prop-radius" min="0" max="32" value="12" style="width: 100%;">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Opacity</label>
+                  <input type="range" id="prop-opacity" min="20" max="100" value="100" style="width: 100%;">
+                </div>
+              </div>
+
+              <div class="control-row" style="margin-top: 6px;">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Shadow</label>
+                  <select id="prop-shadow" class="prop-input">
+                    <option value="none">None</option>
+                    <option value="subtle">Subtle</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="deep">Deep</option>
+                    <option value="glow">Glow</option>
+                  </select>
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Glass Blur</label>
+                  <select id="prop-glass" class="prop-input">
+                    <option value="none">Solid</option>
+                    <option value="blur">Frosted Glass</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Typography Section -->
+            <div class="panel-section">
+              <div class="section-header">
+                <span class="section-title">Typography</span>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Font Family</label>
+                <select id="prop-font-family" class="prop-input">
+                  <option value="'Inter', sans-serif">Inter (Modern Clean)</option>
+                  <option value="'JetBrains Mono', monospace">JetBrains Mono (Code)</option>
+                  <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans</option>
+                  <option value="'Outfit', sans-serif">Outfit (Editorial)</option>
+                  <option value="'Playfair Display', serif">Playfair (Serif Quote)</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1.1;">
+                  <label class="control-label">Size (px)</label>
+                  <div style="display: flex; gap: 4px; align-items: center;">
+                    <button type="button" id="btn-font-size-dec" class="btn-secondary" style="height: 30px; width: 28px; padding: 0; font-size: 14px; font-weight: bold; line-height: 1;" title="Decrease font size">-</button>
+                    <input type="number" id="prop-font-size" class="prop-input" value="13" min="8" max="72" step="1" style="text-align: center; padding: 4px 6px;">
+                    <button type="button" id="btn-font-size-inc" class="btn-secondary" style="height: 30px; width: 28px; padding: 0; font-size: 14px; font-weight: bold; line-height: 1;" title="Increase font size">+</button>
+                  </div>
+                </div>
+                <div class="control-group" style="flex: 0.9;">
+                  <label class="control-label">Align</label>
+                  <select id="prop-text-align" class="prop-input" style="height: 30px;">
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="panel-section">
+              <div class="section-header">
+                <span class="section-title">Actions</span>
+              </div>
+              <div class="layout-actions-grid">
+                <button id="btn-prop-duplicate" class="btn-layout" title="Duplicate (Ctrl+D)">Duplicate</button>
+                <button id="btn-prop-lock" class="btn-layout" title="Lock (Ctrl+L)">Lock</button>
+                <button id="btn-prop-delete" class="btn-layout" style="color: var(--accent-danger);" title="Delete (Del)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACKGROUND STUDIO TAB -->
+        <div id="tab-content-background" class="tab-pane" style="display: none;">
+          <!-- Quick Presets Carousel/Bar -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Quick Presets</span>
+              <span class="tag-badge">1-CLICK</span>
+            </div>
+            <div class="bg-presets-bar">
+              <button class="bg-preset-chip" data-preset="pure-black" title="Pure Black #000000">⬛ Black</button>
+              <button class="bg-preset-chip" data-preset="dark" title="Dark Charcoal #111114">◼️ Dark</button>
+              <button class="bg-preset-chip" data-preset="light" title="Studio Light #f8fafc">◻️ Light</button>
+              <button class="bg-preset-chip" data-preset="midnight" title="Midnight Gradient">🌌 Midnight</button>
+              <button class="bg-preset-chip" data-preset="nature" title="Alpine Mountain Landscape">🏔️ Nature</button>
+              <button class="bg-preset-chip" data-preset="blurred-photo" title="Atmospheric Blurred Photo">✨ Blurred</button>
+              <button class="bg-preset-chip" data-preset="minimal" title="Minimal Obsidian Gradient">🌑 Minimal</button>
+              <button class="bg-preset-chip" data-preset="transparent" title="Transparent for PNG Export">🏁 Alpha</button>
+            </div>
+          </div>
+
+          <!-- Background Mode Selector -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Background Type</span>
+            </div>
+            <div class="bg-type-segments">
+              <button class="bg-type-btn active" data-type="solid">Solid</button>
+              <button class="bg-type-btn" data-type="gradient">Gradient</button>
+              <button class="bg-type-btn" data-type="image">Image</button>
+              <button class="bg-type-btn" data-type="builtin">Library</button>
+              <button class="bg-type-btn" data-type="transparent">Alpha</button>
+            </div>
+          </div>
+
+          <!-- 1. SOLID COLOR CONTROLS -->
+          <div id="bg-panel-solid" class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Color Palette</span>
+            </div>
+            <div class="color-presets-grid" id="bg-solid-swatches">
+              <div class="color-swatch" style="background: #000000;" data-color="#000000" title="Pure Black (#000000)"></div>
+              <div class="color-swatch" style="background: #111114;" data-color="#111114" title="Dark Charcoal (#111114)"></div>
+              <div class="color-swatch" style="background: #18181b;" data-color="#18181b" title="Obsidian Slate (#18181b)"></div>
+              <div class="color-swatch" style="background: #27272a;" data-color="#27272a" title="Deep Zinc (#27272a)"></div>
+              <div class="color-swatch" style="background: #f8fafc;" data-color="#f8fafc" title="Porcelain White (#f8fafc)"></div>
+              <div class="color-swatch" style="background: #0f172a;" data-color="#0f172a" title="Midnight Navy (#0f172a)"></div>
+              <div class="color-swatch" style="background: #450a0a;" data-color="#450a0a" title="Deep Crimson (#450a0a)"></div>
+              <div class="color-swatch" style="background: #064e3b;" data-color="#064e3b" title="Emerald Forest (#064e3b)"></div>
+              <div class="color-swatch" style="background: #3b0764;" data-color="#3b0764" title="Royal Violet (#3b0764)"></div>
+              <div class="color-swatch" style="background: #083344;" data-color="#083344" title="Abyss Cyan (#083344)"></div>
+              <div class="color-swatch" style="background: #451a03;" data-color="#451a03" title="Warm Ember (#451a03)"></div>
+              <div class="color-swatch" style="background: #172554;" data-color="#172554" title="Dark Sapphire (#172554)"></div>
+            </div>
+
+            <!-- Professional Color Picker & Exact HEX -->
+            <div class="control-row" style="margin-top: 10px;">
+              <div class="control-group" style="flex: 1;">
+                <label class="control-label">HEX Value</label>
+                <input type="text" id="bg-color-hex" class="prop-input" value="#000000" placeholder="#000000">
+              </div>
+              <div class="control-group" style="width: 48px;">
+                <label class="control-label">Picker</label>
+                <input type="color" id="bg-color-picker" value="#000000" style="width: 100%; height: 28px; padding: 0; border: none; cursor: pointer; border-radius: 4px;">
+              </div>
+            </div>
+
+            <!-- RGB Channels -->
+            <div style="margin-top: 8px;">
+              <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: 600;">RGB Channels</div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">R</label>
+                  <input type="number" id="bg-rgb-r" class="prop-input" min="0" max="255" value="0">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">G</label>
+                  <input type="number" id="bg-rgb-g" class="prop-input" min="0" max="255" value="0">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">B</label>
+                  <input type="number" id="bg-rgb-b" class="prop-input" min="0" max="255" value="0">
+                </div>
+              </div>
+            </div>
+
+            <!-- HSL Values -->
+            <div style="margin-top: 8px;">
+              <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: 600;">HSL Values</div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">H°</label>
+                  <input type="number" id="bg-hsl-h" class="prop-input" min="0" max="360" value="0">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">S%</label>
+                  <input type="number" id="bg-hsl-s" class="prop-input" min="0" max="100" value="0">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">L%</label>
+                  <input type="number" id="bg-hsl-l" class="prop-input" min="0" max="100" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. GRADIENT CONTROLS -->
+          <div id="bg-panel-gradient" class="panel-section" style="display: none;">
+            <div class="section-header">
+              <span class="section-title">Gradient Editor</span>
+            </div>
+            <!-- Presets -->
+            <label class="control-label">Presets</label>
+            <div class="gradient-presets-bar">
+              <button class="grad-preset-chip" data-grad="midnight" style="background: linear-gradient(135deg, #000000, #0f172a);" title="Midnight: Black → Dark Blue">Midnight</button>
+              <button class="grad-preset-chip" data-grad="ember" style="background: linear-gradient(135deg, #000000, #450a0a);" title="Ember: Black → Deep Red">Ember</button>
+              <button class="grad-preset-chip" data-grad="ocean" style="background: linear-gradient(135deg, #040d1a, #0c4a6e);" title="Ocean: Dark Blue → Cyan">Ocean</button>
+              <button class="grad-preset-chip" data-grad="forest" style="background: linear-gradient(135deg, #000000, #064e3b);" title="Forest: Black → Deep Green">Forest</button>
+              <button class="grad-preset-chip" data-grad="violet" style="background: linear-gradient(135deg, #000000, #3b0764);" title="Violet: Black → Purple">Violet</button>
+              <button class="grad-preset-chip" data-grad="sunset" style="background: linear-gradient(135deg, #11050a, #701a35);" title="Sunset: Dark Red → Berry">Sunset</button>
+              <button class="grad-preset-chip" data-grad="aurora" style="background: linear-gradient(135deg, #030712, #134e4a);" title="Aurora: Void → Emerald">Aurora</button>
+            </div>
+
+            <!-- Gradient Type & Angle -->
+            <div class="control-row" style="margin-top: 10px;">
+              <div class="control-group" style="flex: 1;">
+                <label class="control-label">Type</label>
+                <select id="bg-grad-type" class="prop-input">
+                  <option value="linear">Linear Gradient</option>
+                  <option value="radial">Radial Gradient</option>
+                </select>
+              </div>
+              <div class="control-group" style="width: 80px;">
+                <label class="control-label">Angle</label>
+                <div style="display: flex; align-items: center; gap: 4px;">
+                  <input type="number" id="bg-grad-angle" class="prop-input" value="135" min="0" max="360">
+                  <span style="font-size: 11px; color: var(--text-muted);">°</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Angle Range Slider -->
+            <div class="control-group" id="bg-grad-angle-slider-wrap" style="margin-top: 6px;">
+              <input type="range" id="bg-grad-angle-slider" min="0" max="360" value="135" class="prop-slider">
+            </div>
+
+            <!-- Color Stops -->
+            <div class="control-row" style="margin-top: 10px;">
+              <div class="control-group" style="flex: 1;">
+                <label class="control-label">Stop 1 (Start)</label>
+                <div class="control-row">
+                  <input type="color" id="bg-grad-c1" value="#000000" style="width: 32px; height: 28px; padding: 0; border: none; cursor: pointer;">
+                  <input type="text" id="bg-grad-c1-hex" class="prop-input" value="#000000" style="flex: 1;">
+                </div>
+              </div>
+              <div class="control-group" style="flex: 1;">
+                <label class="control-label">Stop 2 (End)</label>
+                <div class="control-row">
+                  <input type="color" id="bg-grad-c2" value="#0f172a" style="width: 32px; height: 28px; padding: 0; border: none; cursor: pointer;">
+                  <input type="text" id="bg-grad-c2-hex" class="prop-input" value="#0f172a" style="flex: 1;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Stop 3 (Optional) -->
+            <div class="control-row" style="margin-top: 8px;">
+              <div class="control-group" style="flex: 1;">
+                <label class="control-label">Stop 3 (Mid, Optional)</label>
+                <div class="control-row">
+                  <input type="color" id="bg-grad-c3" value="#000000" style="width: 32px; height: 28px; padding: 0; border: none; cursor: pointer;">
+                  <input type="text" id="bg-grad-c3-hex" class="prop-input" placeholder="None" style="flex: 1;">
+                  <button id="btn-clear-grad-c3" class="btn-icon" title="Clear Mid Stop" style="width: 24px; height: 28px;">✕</button>
+                </div>
+              </div>
+              <div class="control-group" style="width: 65px; justify-content: flex-end;">
+                <label class="control-label">&nbsp;</label>
+                <button id="btn-swap-grad" class="btn-secondary" style="height: 28px; font-size: 11px; padding: 0 6px;" title="Swap Colors">⇄ Swap</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. USER IMAGE BACKGROUND CONTROLS -->
+          <div id="bg-panel-image" class="panel-section" style="display: none;">
+            <div class="section-header">
+              <span class="section-title">Custom Image</span>
+            </div>
+            
+            <input type="file" id="bg-image-file" accept="image/jpeg,image/png,image/webp,image/bmp" style="display: none;">
+            <button id="btn-choose-image" class="btn-primary-wallpaper" style="width: 100%; height: 36px; justify-content: center; gap: 8px; margin-bottom: 8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Choose Image
+            </button>
+            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 12px;">
+              Supports JPG, JPEG, PNG, WEBP, BMP at native resolution
+            </div>
+
+            <!-- Fit Mode -->
+            <div class="control-group">
+              <label class="control-label">Image Fit Mode</label>
+              <select id="bg-image-fit" class="prop-input">
+                <option value="cover">Cover (Fill screen, keep aspect)</option>
+                <option value="contain">Contain (Show entire image)</option>
+                <option value="stretch">Stretch (Match canvas bounds)</option>
+                <option value="center">Center (Original size centered)</option>
+                <option value="custom">Custom (Manual position & scale)</option>
+              </select>
+            </div>
+
+            <!-- Position & Scale Visual Manipulators -->
+            <div id="bg-image-transform-controls" style="margin-top: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label class="control-label" style="margin-bottom: 0;">Position & Zoom</label>
+                <button id="btn-img-reset-pos" class="btn-link" style="font-size: 10px; color: var(--accent-primary); padding: 0;">Reset Position</button>
+              </div>
+              <div class="control-row">
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Pan X (px)</label>
+                  <input type="number" id="bg-img-pan-x" class="prop-input" value="0">
+                </div>
+                <div class="control-group" style="flex: 1;">
+                  <label class="control-label">Pan Y (px)</label>
+                  <input type="number" id="bg-img-pan-y" class="prop-input" value="0">
+                </div>
+              </div>
+
+              <div class="control-group" style="margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <label class="control-label">Scale / Zoom</label>
+                  <span id="bg-img-scale-val" class="slider-val-badge">100%</span>
+                </div>
+                <input type="range" id="bg-img-scale" min="20" max="300" value="100" class="prop-slider">
+              </div>
+
+              <div class="control-group" style="margin-top: 8px;">
+                <div style="display: flex; justify-content: space-between;">
+                  <label class="control-label">Rotate</label>
+                  <span id="bg-img-rot-val" class="slider-val-badge">0°</span>
+                </div>
+                <input type="range" id="bg-img-rotation" min="-180" max="180" value="0" class="prop-slider">
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. BUILT-IN HIGH-RESOLUTION LIBRARY -->
+          <div id="bg-panel-library" class="panel-section" style="display: none;">
+            <div class="section-header">
+              <span class="section-title">Built-in Library</span>
+              <span class="tag-badge">VECTOR HD</span>
+            </div>
+            <!-- Category Pills -->
+            <div class="library-cats-bar">
+              <button class="lib-cat-btn active" data-cat="all">All</button>
+              <button class="lib-cat-btn" data-cat="minimal">Minimal</button>
+              <button class="lib-cat-btn" data-cat="abstract">Abstract</button>
+              <button class="lib-cat-btn" data-cat="nature">Nature</button>
+              <button class="lib-cat-btn" data-cat="architecture">Architecture</button>
+              <button class="lib-cat-btn" data-cat="developer">Developer</button>
+            </div>
+            <!-- Library Thumbnails Grid -->
+            <div id="bg-library-grid" class="bg-library-grid"></div>
+          </div>
+
+          <!-- 5. TRANSPARENT MODE INFO BANNER -->
+          <div id="bg-panel-transparent" class="panel-section" style="display: none;">
+            <div style="padding: 16px; background: rgba(99, 102, 241, 0.08); border: 1px dashed var(--accent-primary); border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 6px;">🏁</div>
+              <div style="font-weight: 600; font-size: 13px; color: var(--text-primary); margin-bottom: 4px;">Transparent Canvas</div>
+              <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">
+                Checkerboard pattern indicates alpha channel. Notes and cards remain fully visible and export with transparent PNG background.
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. OVERLAY CONTROLS (Applies to any background) -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Background Overlay</span>
+            </div>
+            <!-- Dark Overlay -->
+            <div class="control-group">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Dark Overlay (Readability)</label>
+                <span id="bg-dark-overlay-val" class="slider-val-badge">0%</span>
+              </div>
+              <input type="range" id="bg-dark-overlay" min="0" max="80" value="0" class="prop-slider">
+            </div>
+
+            <!-- Custom Color Overlay -->
+            <div class="control-row" style="margin-top: 10px;">
+              <div class="control-group" style="flex: 1;">
+                <div style="display: flex; justify-content: space-between;">
+                  <label class="control-label">Tint Overlay</label>
+                  <span id="bg-color-overlay-val" class="slider-val-badge">0%</span>
+                </div>
+                <input type="range" id="bg-color-overlay-opacity" min="0" max="100" value="0" class="prop-slider">
+              </div>
+              <div class="control-group" style="width: 44px; margin-left: 8px;">
+                <label class="control-label">Color</label>
+                <input type="color" id="bg-color-overlay-picker" value="#000000" style="width: 100%; height: 28px; padding: 0; border: none; cursor: pointer; border-radius: 4px;">
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. BACKGROUND BLUR -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Background Blur</span>
+            </div>
+            <div class="control-group">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Blur Radius</label>
+                <span id="bg-blur-val" class="slider-val-badge">0 px</span>
+              </div>
+              <input type="range" id="bg-blur-slider" min="0" max="40" value="0" class="prop-slider">
+              <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
+                Creates a cinematic soft background. Desktop notes remain razor sharp.
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. PROFESSIONAL EFFECTS & ADJUSTMENTS -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Effects & Adjustments</span>
+              <button id="btn-reset-effects" class="btn-link" style="font-size: 10px; color: var(--accent-primary); padding: 0;">Reset Effects</button>
+            </div>
+
+            <div class="control-group">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Brightness</label>
+                <span id="bg-brightness-val" class="slider-val-badge">100%</span>
+              </div>
+              <input type="range" id="bg-effect-brightness" min="40" max="160" value="100" class="prop-slider">
+            </div>
+
+            <div class="control-group" style="margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Contrast</label>
+                <span id="bg-contrast-val" class="slider-val-badge">100%</span>
+              </div>
+              <input type="range" id="bg-effect-contrast" min="40" max="160" value="100" class="prop-slider">
+            </div>
+
+            <div class="control-group" style="margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Saturation</label>
+                <span id="bg-saturation-val" class="slider-val-badge">100%</span>
+              </div>
+              <input type="range" id="bg-effect-saturation" min="0" max="200" value="100" class="prop-slider">
+            </div>
+
+            <div class="control-group" style="margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Vignette Depth</label>
+                <span id="bg-vignette-val" class="slider-val-badge">0%</span>
+              </div>
+              <input type="range" id="bg-effect-vignette" min="0" max="100" value="0" class="prop-slider">
+            </div>
+
+            <div class="control-group" style="margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Grayscale</label>
+                <span id="bg-grayscale-val" class="slider-val-badge">0%</span>
+              </div>
+              <input type="range" id="bg-effect-grayscale" min="0" max="100" value="0" class="prop-slider">
+            </div>
+
+            <div class="control-group" style="margin-top: 8px;">
+              <div style="display: flex; justify-content: space-between;">
+                <label class="control-label">Warmth / Sepia</label>
+                <span id="bg-sepia-val" class="slider-val-badge">0%</span>
+              </div>
+              <input type="range" id="bg-effect-sepia" min="0" max="100" value="0" class="prop-slider">
+            </div>
+          </div>
+
+          <!-- 9. RESET & REMOVE BACKGROUND -->
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Background Actions</span>
+            </div>
+            <div class="layout-actions-grid" style="grid-template-columns: 1fr 1fr;">
+              <button id="btn-reset-background" class="btn-layout" title="Revert to Project Default Background">Reset</button>
+              <button id="btn-remove-background" class="btn-layout" style="color: var(--accent-danger);" title="Remove and set to Solid Black">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUTO LAYOUT & ALIGNMENT TAB -->
+        <div id="tab-content-layout" class="tab-pane" style="display: none;">
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Note Auto Layout</span>
+            </div>
+            <div class="control-group">
+              <div class="layout-actions-grid">
+                <button id="btn-layout-grid" class="btn-layout">Grid</button>
+                <button id="btn-layout-masonry" class="btn-layout">Masonry</button>
+                <button id="btn-layout-pack" class="btn-layout">Smart Pack</button>
+                <button id="btn-layout-horiz" class="btn-layout">Horizontal</button>
+                <button id="btn-layout-vert" class="btn-layout">Vertical</button>
+                <button id="btn-layout-center" class="btn-layout">Center All</button>
+              </div>
+            </div>
+
+            <div class="control-group" style="margin-top: 10px;">
+              <label class="control-label">Alignment</label>
+              <div class="layout-actions-grid">
+                <button id="btn-align-left" class="btn-layout">Left</button>
+                <button id="btn-align-hcenter" class="btn-layout">H-Center</button>
+                <button id="btn-align-right" class="btn-layout">Right</button>
+                <button id="btn-align-top" class="btn-layout">Top</button>
+                <button id="btn-align-vcenter" class="btn-layout">V-Center</button>
+                <button id="btn-align-bottom" class="btn-layout">Bottom</button>
+              </div>
+            </div>
+
+            <div class="control-group" style="margin-top: 10px;">
+              <label class="control-label">Distribute</label>
+              <div class="layout-actions-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <button id="btn-dist-horiz" class="btn-layout">Distribute H</button>
+                <button id="btn-dist-vert" class="btn-layout">Distribute V</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LAYERS TAB -->
+        <div id="tab-content-layers" class="tab-pane" style="display: none;">
+          <div class="panel-section">
+            <div class="section-header">
+              <span class="section-title">Layer Order</span>
+              <div class="control-row">
+                <button id="btn-layer-lock-all" class="layer-btn" title="Lock All">🔒 All</button>
+                <button id="btn-layer-unlock-all" class="layer-btn" title="Unlock All">🔓 All</button>
+              </div>
+            </div>
+            <div id="layers-list" class="layers-list">
+              <!-- Dynamically populated layers -->
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Floating Exit Fullscreen Preview Button -->
+    <button id="btn-exit-preview" class="exit-preview-floating-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Exit Preview (Esc)
+    </button>
+
+    <!-- Modals -->
+    <!-- Templates Modal -->
+    <div id="modal-templates" class="modal-backdrop">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">Wallpaper Templates</div>
+          <button class="modal-close-btn" data-close="modal-templates">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="templates-grid" id="templates-grid">
+            <!-- Dynamically populated template cards -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export PNG Modal -->
+    <div id="modal-export" class="modal-backdrop">
+      <div class="modal-card" style="max-width: 480px;">
+        <div class="modal-header">
+          <div class="modal-title">Export Wallpaper as PNG</div>
+          <button class="modal-close-btn" data-close="modal-export">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="control-group">
+            <label class="control-label">Export Resolution</label>
+            <select id="export-res-select" class="prop-input">
+              <option value="current">Current Canvas Resolution (1x)</option>
+              <option value="2k">2K QHD (2560 × 1440)</option>
+              <option value="4k">4K UHD (3840 × 2160)</option>
+              <option value="2x">Double Scale (2x Retina)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Quality</label>
+            <select id="export-quality" class="prop-input">
+              <option value="high">Maximum Quality (Lossless PNG)</option>
+              <option value="standard">Standard PNG</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" data-close="modal-export">Cancel</button>
+          <button id="btn-confirm-export" class="btn-primary-wallpaper">Export PNG</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wallpaper History Modal -->
+    <div id="modal-history" class="modal-backdrop">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">Wallpaper History</div>
+          <button class="modal-close-btn" data-close="modal-history">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="history-items-container" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- History items -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="modal-settings" class="modal-backdrop">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-title">Settings & Shortcuts</div>
+          <button class="modal-close-btn" data-close="modal-settings">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="panel-section" style="padding: 0 0 14px 0;">
+            <div class="section-title" style="margin-bottom: 8px;">General</div>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 6px;">
+              <input type="checkbox" id="setting-autosave" checked> Automatically save project changes
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 6px;">
+              <input type="checkbox" id="setting-snap-grid" checked> Snap notes to grid (8px)
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+              <input type="checkbox" id="setting-smart-guides" checked> Show Figma-style smart alignment guides
+            </label>
+          </div>
+
+          <div class="panel-section" style="padding: 14px 0 0 0;">
+            <div class="section-title" style="margin-bottom: 8px;">Keyboard Shortcuts</div>
+            <table style="width: 100%; font-size: 12px; border-collapse: collapse; color: var(--text-secondary);">
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + S</kbd></td><td>Save Project</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + Z / Shift+Z</kbd></td><td>Undo / Redo</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + D</kbd></td><td>Duplicate Selected Note</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Delete</kbd></td><td>Delete Selected Note</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + G</kbd></td><td>Group Notes</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + L</kbd></td><td>Lock / Unlock Note</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + P</kbd></td><td>Preview Fullscreen Wallpaper</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + E</kbd></td><td>Export PNG</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Ctrl + Shift + N</kbd></td><td>Quick Note HUD</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Space + Drag</kbd></td><td>Pan Canvas</td></tr>
+              <tr><td style="padding: 4px 0;"><kbd>Mouse Wheel</kbd></td><td>Zoom In / Out</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global Search Modal -->
+    <div id="modal-search" class="modal-backdrop">
+      <div class="modal-card" style="max-width: 480px;">
+        <div class="modal-header">
+          <input type="text" id="search-input" class="prop-input" placeholder="Search note title, content, or #tag..." style="font-size: 14px; padding: 8px 12px;">
+        </div>
+        <div class="modal-body" style="max-height: 300px;">
+          <div id="search-results-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome First Launch Modal -->
+    <div id="modal-welcome" class="modal-backdrop">
+      <div class="modal-card" style="max-width: 440px; text-align: center; padding: 24px 20px;">
+        <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--accent-gradient); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; box-shadow: 0 0 20px rgba(99,102,241,0.5);">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+            <path d="M8 12h8"/>
+            <path d="M8 8h5"/>
+            <path d="M8 16h6"/>
+          </svg>
+        </div>
+        <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Welcome to NoteWall</div>
+        <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 22px;">
+          Move, customize, and arrange your notes to create your perfect desktop wallpaper.
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button id="btn-welcome-start" class="btn-primary-wallpaper" style="padding: 0 20px; height: 36px; font-size: 12.5px;">Start Editing</button>
+          <button id="btn-welcome-templates" class="btn-secondary" style="padding: 0 16px; height: 36px; font-size: 12.5px;">Explore Templates</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/bridge.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/backgroundEngine.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/noteManager.js"></script>
+  <script src="js/propertiesPanel.js"></script>
+  <script src="js/layersPanel.js"></script>
+  <script src="js/layoutEngine.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/wallpaperExporter.js"></script>
+  <script src="js/desktopPreview.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
